@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-labelledby="title desc">
+  <title id="title">Leave Manager logo</title>
+  <desc id="desc">Calendar with a check mark and a small user silhouette representing employee leave approvals.</desc>
+
+  <!-- Background rounded square -->
+  <rect x="2" y="2" width="116" height="116" rx="18" ry="18" fill="#FFFFFF" stroke="#E6EEF9" stroke-width="2"/>
+
+  <!-- Calendar body -->
+  <g transform="translate(12,14)">
+    <!-- calendar card -->
+    <rect x="0" y="6" width="96" height="74" rx="8" ry="8" fill="#2563EB" opacity="0.12"/>
+
+    <!-- calendar top bar -->
+    <rect x="0" y="0" width="96" height="18" rx="6" ry="6" fill="#2563EB" />
+
+    <!-- binder rings -->
+    <circle cx="18" cy="9" r="3.2" fill="#FFFFFF"/>
+    <circle cx="48" cy="9" r="3.2" fill="#FFFFFF"/>
+    <circle cx="78" cy="9" r="3.2" fill="#FFFFFF"/>
+
+    <!-- calendar grid lines -->
+    <g stroke="#2563EB" stroke-opacity="0.2" stroke-width="1.2" fill="none">
+      <path d="M8 32 H88" />
+      <path d="M8 50 H88" />
+      <path d="M30 24 V80" />
+      <path d="M54 24 V80" />
+    </g>
+
+    <!-- check-mark badge (approval) -->
+    <g transform="translate(58,38)">
+      <circle cx="18" cy="18" r="18" fill="#10B981"/>
+      <path d="M12 18.5 L17.5 24 L28 12" fill="none" stroke="#FFFFFF" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- small user silhouette (employee) -->
+    <g transform="translate(6,54)" fill="#F59E0B">
+      <!-- head -->
+      <circle cx="12" cy="6" r="6" />
+      <!-- shoulders -->
+      <path d="M0 20c2-6 8-10 12-10s10 4 12 10" fill="#F59E0B"/>
+    </g>
+  </g>
+</svg>
+
