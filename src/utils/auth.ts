@@ -1,8 +1,11 @@
 import { User } from "@/types/user";
+import Cookies from "js-cookie";
 
-export const login = (token: string, user: User) => {
+export const login =  (token: string, user: User) => {
   setToken(token);
   setUser(user);
+  Cookies.set('token', token);
+  Cookies.set('user', JSON.stringify(user));
 }
 
 export const logout = () => {

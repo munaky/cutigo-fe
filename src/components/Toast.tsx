@@ -37,7 +37,7 @@ const Toast: React.FC<ToastProps> = ({
 
   return (
     <div
-      className={`fixed right-4 top-4 z-50 max-w-sm border-l-4 p-4 rounded shadow-lg transition-opacity duration-300 ${typeStyles[type]}`}
+      className={`fixed right-4 top-4 z-50 min-w-[300px] max-w-sm border-l-4 p-4 rounded shadow-lg transition-opacity duration-300 ${typeStyles[type]}`}
     >
       <div className="flex justify-between items-start">
         <div>

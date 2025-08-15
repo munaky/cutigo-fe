@@ -1,7 +1,15 @@
 import { api } from "./api";
+import qs from "qs";
 
-export const getUsersApi = async () => {
-    const res = await api().get('/users/get')
+interface getUsersQuery {
+    limit?: number;
+    offset?: number;
+    search?: string; 
+    lastId?: number;
+}   
+
+export const getUsersApi = async (query: getUsersQuery) => {
+    const res = await api().get(`/users/get?${qs.stringify(query)}`)
     return res.data;
 }
 

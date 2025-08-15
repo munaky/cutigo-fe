@@ -5,6 +5,8 @@ import { SquarePen, Trash2 } from "lucide-react";
 import Dialog from "./Dialog";
 import React, { useState } from "react";
 import { deleteUsersApi, updateUsersApi } from "@/api/admin";
+import FullScreenLoader from "./FullScreenLoader";
+import Toast from "./Toast";
 
 interface UserTableRowProps {
   index: number;
@@ -19,6 +21,8 @@ export default function UserTableRow({
 }: UserTableRowProps) {
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const [formData, setFormData] = useState({
     name: user.name,
     email: user.email,
@@ -32,10 +36,12 @@ export default function UserTableRow({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmitUpdate = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmitUpdate = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setLoading(true)
 
-    updateUsersApi(user.id, formData).catch((e) => console.log(e));
+    await updateUsersApi(user.id, formData).catch((e) => console.log(e));
     setUsers((prev: User[]) =>
       prev.map((item) =>
         item.id == user.id
@@ -43,18 +49,35 @@ export default function UserTableRow({
           : item
       )
     );
+    } catch (error: any) {
+      console.log(error);
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong, try again later.";
+
+      setError(message);
+    }
+
     setOpenUpdateDialog(false);
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-    });
+    setLoading(false);
   };
 
-  const handleDelete = (e: React.FormEvent) => {
-    e.preventDefault();
-    deleteUsersApi(user.id);
-    setUsers((prev: User[]) => prev.filter((item) => item.id != user.id));
+  const handleDelete = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      await deleteUsersApi(user.id);
+      setUsers((prev: User[]) => prev.filter((item) => item.id != user.id));
+    } catch (error: any) {
+      console.log(error);
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong, try again later.";
+
+      setError(message);
+    }
+
+    setLoading(false);
     setOpenDeleteDialog(false);
   };
   return (
@@ -65,6 +88,16 @@ export default function UserTableRow({
         <td className="px-4 py-3">{user.email}</td>
         <td className="px-4 py-3 text-center">
           <div className="flex justify-center gap-2">
+          <FullScreenLoader loading={loading} />
+      {error && (
+        <Toast
+          type={"error"}
+          title={"Error!"}
+          message={error}
+          onClose={() => setError("")}
+        />
+      )}
+
             {/* Update Dialog */}
             <Dialog
               open={openUpdateDialog}
@@ -156,8 +189,9 @@ export default function UserTableRow({
               </form>
             </Dialog>
             <button
-            onClick={() => setOpenUpdateDialog(true)}
-            className="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition-colors">
+              onClick={() => setOpenUpdateDialog(true)}
+              className="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition-colors"
+            >
               <SquarePen size={16} />
             </button>
             <button

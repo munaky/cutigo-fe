@@ -1,43 +1,30 @@
-"use client";
+// app/page.tsx
+import { User } from "@/types/user";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { getToken } from "@/utils/auth";
-import { getUser } from "@/utils/auth";
-import FullScreenLoader from "@/components/FullScreenLoader";
+export default async function HomePage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  const userCookie = cookieStore.get("user")?.value;
 
-export default function HomePage() {
-  const router = useRouter();
+  if (!token || !userCookie) {
+    redirect("/login");
+  }
 
-  useEffect(() => {
-    const token = getToken();
+  let user: User;
+  try {
+    user = JSON.parse(userCookie);
+  } catch {
+    redirect("/login");
+  }
 
-    if (!token) {
-      router.replace("/login");
-      return;
-    }
-
-    const checkRole = async () => {
-      try {
-        const user = getUser();
-
-        if (!user) {
-          router.replace("/login");
-          return;
-        }
-
-        if (user.role === "ADMIN") {
-          router.replace("/admin");
-        } else {
-          router.replace("/user");
-        }
-      } catch {
-        router.replace("/login");
-      }
-    };
-
-    checkRole();
-  }, [router]);
-
-  return <FullScreenLoader loading />;
+  if (user.role === "ADMIN") {
+    redirect("/admin");
+  } else if(user.role == 'USER') {
+    redirect("/user");
+  }
+  else{
+    redirect('/login');
+  }
 }

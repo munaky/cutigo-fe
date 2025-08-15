@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { setToken } from "@/utils/auth";
-import { setUser } from "@/utils/auth";
+import { login } from "@/utils/auth";
 import { loginApi } from "@/api/auth";
 import FullScreenLoader from "@/components/FullScreenLoader";
+import Toast from "@/components/Toast";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,13 +20,12 @@ export default function LoginPage() {
       setError("");
       setLoading(true);
 
-      const result = await loginApi({ email, password });
+      const res = await loginApi({ email, password });
+      const data = res.data; 
 
-      console.log(result);
-      setToken(result.data.token);
-      setUser(result.data.user);
+      login(data.token, data.user);
 
-      if (result.data.user.role === "ADMIN") {
+      if (data.user.role === "ADMIN") {
         router.push("/admin");
       } else {
         router.push("/user");
@@ -37,13 +36,15 @@ export default function LoginPage() {
         error?.response?.data?.message ||
         "Something went wrong, try again later.";
 
-      setError(message || "Something went wrong");
+      setLoading(false);
+      setError(message);
     }
   };
 
   return (
     <div className="flex h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
   <FullScreenLoader loading={loading} />
+  {error && <Toast type={'error'} title={'Error!'} message={error} onClose={() => setError('')} />}
   <form
     onSubmit={handleSubmit}
     className="relative bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm space-y-6 border border-gray-100"

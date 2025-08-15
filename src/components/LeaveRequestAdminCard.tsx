@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { SquarePen, Trash2 } from "lucide-react";
 import { LeaveRequest } from "@/types/leaveRequest";
 import { deleteLeaveRequestApi, updateLeaveRequestApi } from "@/api/admin";
-import { formatDate } from "@/utils/formatDate";
+import { formatDate, readableDate } from "@/utils/formatDate";
 import Dialog from "./Dialog";
+import Toast from "./Toast";
+import FullScreenLoader from "./FullScreenLoader";
 
 interface LeaveRequestProps {
   record: LeaveRequest;
@@ -19,32 +21,58 @@ export default function LeaveRequestAdminCard({
   const [status, setStatus] = useState<
     string | "PENDING" | "APPROVED" | "REJECTED"
   >(record.status);
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-  function handleDelete(e: React.FormEvent) {
-    e.preventDefault();
-    deleteLeaveRequestApi(record.id).catch((err: any) => console.log(err));
-
-    setRecords((prev: LeaveRequest[]) =>
-      prev.filter((r) => r.id !== record.id)
-    );
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    setRecords((prev: LeaveRequest[]) => {
-      const newRecords = prev.map((r) =>
-        r.id == record.id ? { ...r, status } : r
+  const handleDelete = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      await deleteLeaveRequestApi(record.id);
+      setRecords((prev: LeaveRequest[]) =>
+        prev.filter((r) => r.id !== record.id)
       );
-      const pendingRecord = newRecords.filter((r) => r.status == "PENDING");
-      const nonPendingRecord = newRecords.filter((r) => r.status != "PENDING");
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error);
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong, try again later.";
 
-      return [...pendingRecord, ...nonPendingRecord];
-    });
+      setLoading(false);
+      setOpenDeleteDialog(false);
+      setError(message);
+    }
+  };
 
-    updateLeaveRequestApi(record.id, status as any);
+  const handleUpdate = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      await updateLeaveRequestApi(record.id, status as any);
+      setRecords((prev: LeaveRequest[]) => {
+        const newRecords = prev.map((r) =>
+          r.id == record.id ? { ...r, status } : r
+        );
+        const pendingRecord = newRecords.filter((r) => r.status == "PENDING");
+        const nonPendingRecord = newRecords.filter(
+          (r) => r.status != "PENDING"
+        );
 
-    setOpen(false);
+        return [...pendingRecord, ...nonPendingRecord];
+      });
+      setLoading(false);
+      setOpen(false);
+    } catch (error: any) {
+      console.log(error);
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong, try again later.";
+
+      setLoading(false);
+      setOpen(false);
+      setError(message);
+    }
   };
   return (
     <div
@@ -57,9 +85,19 @@ export default function LeaveRequestAdminCard({
           : "border-red-300")
       }
     >
+      <FullScreenLoader loading={loading} />
+      {error && (
+        <Toast
+          type={"error"}
+          title={"Error!"}
+          message={error}
+          onClose={() => setError("")}
+        />
+      )}
+
       {/* Update dialog */}
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleUpdate} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Status
@@ -141,7 +179,7 @@ export default function LeaveRequestAdminCard({
 
       {/* Date range */}
       <p className="mt-1 text-center font-semibold text-gray-800">
-        {formatDate(record.startDate)} ~ {formatDate(record.endDate)}
+        {readableDate(record.startDate)} ~ {readableDate(record.endDate)}
       </p>
 
       {/* Reason */}
@@ -153,7 +191,7 @@ export default function LeaveRequestAdminCard({
       {/* Bottom section */}
       <div className="mt-4 flex items-center justify-between">
         <span className="text-xs text-gray-500">
-          {formatDate(record.createdAt)}
+          {readableDate(record.createdAt)}
         </span>
         <div className="flex gap-2">
           <div
