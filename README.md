@@ -27,4 +27,17 @@ Dengan CutiGo, tidak ada lagi formulir manual atau repot-repot menghubungi HR se
 
 ---
 
+## ⚙️ Instalasi & Menjalankan (Next.js)
 
+Pastikan sudah terpasang **Node.js (>=18)** di komputer.
+
+```bash
+# 1. Clone repo
+git clone https://github.com/username/repo-cutigo.git
+cd repo-cutigo
+
+# 2. Install dependencies
+npm install   # atau yarn install / pnpm install
+
+# 3. Jalankan server development
+npm run dev
