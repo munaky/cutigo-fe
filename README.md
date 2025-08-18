@@ -33,11 +33,11 @@ Pastikan sudah terpasang **Node.js (>=18)** di komputer.
 
 ```bash
 # 1. Clone repo
-git clone https://github.com/username/repo-cutigo.git
-cd repo-cutigo
+git clone https://github.com/munaky/cutigo-fe.git
+cd cutigo-fe
 
 # 2. Install dependencies
-npm install   # atau yarn install / pnpm install
+npm install 
 
 # 3. Jalankan server development
 npm run dev
