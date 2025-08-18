@@ -1,4 +1,4 @@
-# 🌟 CutiGo: Aplikasi Manajemen Pengajuan Cuti Karyawan
+# 🌟 CutiGo: Aplikasi Manajemen Pengajuan Cuti Karyawan (Next.js Frontend)
 
 **CutiGo** adalah aplikasi berbasis web yang membantu perusahaan dalam **mengelola pengajuan cuti karyawan** secara lebih cepat, praktis, dan transparan.  
 Dengan CutiGo, tidak ada lagi formulir manual atau repot-repot menghubungi HR secara langsung — semua bisa dilakukan **secara online**. 🚀
