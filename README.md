@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌟 CutiGo: Aplikasi Manajemen Pengajuan Cuti Karyawan
 
-## Getting Started
+**CutiGo** adalah aplikasi berbasis web yang membantu perusahaan dalam **mengelola pengajuan cuti karyawan** secara lebih cepat, praktis, dan transparan.  
+Dengan CutiGo, tidak ada lagi formulir manual atau repot-repot menghubungi HR secara langsung — semua bisa dilakukan **secara online**. 🚀
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Fitur Utama
+- 📌 **Pengajuan Online** – Karyawan dapat mengajukan cuti kapan saja dan di mana saja.  
+- 📖 **Riwayat Cuti** – Lihat daftar pengajuan cuti sebelumnya dengan mudah.  
+- 🔔 **Notifikasi Status** – Pantau proses persetujuan cuti secara real-time.  
+- ⚡ **Manajemen Efisien** – HR dapat meninjau, menyetujui, atau menolak pengajuan hanya dalam beberapa klik.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 👥 Peran dalam Aplikasi
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 👨‍💼 Karyawan
+- Mengajukan cuti secara online.  
+- Mengubah atau membatalkan pengajuan sebelum diproses.  
+- Melihat status pengajuan cuti.  
 
-## Learn More
+### 🧑‍💻 Admin / HR
+- Meninjau semua pengajuan cuti yang masuk.  
+- Memberikan persetujuan atau penolakan.  
+- Memastikan jadwal cuti tetap selaras dengan operasional perusahaan.  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
