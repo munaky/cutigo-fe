@@ -86,6 +86,7 @@ export default function UserTableRow({
         <td className="px-4 py-3">{index + 1}</td>
         <td className="px-4 py-3 font-medium">{user.name}</td>
         <td className="px-4 py-3">{user.email}</td>
+        <td className="px-4 py-3">{user.leaveRequestCount}</td>
         <td className="px-4 py-3 text-center">
           <div className="flex justify-center gap-2">
           <FullScreenLoader loading={loading} />

@@ -23,7 +23,7 @@ export default function Users({ listUser, user }: UsersProps) {
   const limit = 10;
   const [offset, setOffset] = useState<number>(limit);
   const [search, setSearch] = useState<string>("");
-  const [lastId, setLastId] = useState<number | undefined>(listUser.at(-1)?.id)
+  const lastId = listUser.at(-1)?.id || 0;
   const [users, setUsers] = useState<User[]>(listUser);
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -73,7 +73,6 @@ export default function Users({ listUser, user }: UsersProps) {
   const handleSearch = async () => {
     try {
       const res = await getUsersApi({ limit, offset: 0, search });
-      setLastId(res.data.at(-1)?.id);
       setOffset(limit);
       setUsers(res.data);
     } catch (error: any) {
@@ -91,7 +90,6 @@ export default function Users({ listUser, user }: UsersProps) {
       if (!isBottom) return;
       try {
         const res = await getUsersApi({ limit, offset, search, lastId });
-        setLastId(res.data.at(-1)?.id);
         setOffset(offset + limit);
         setUsers((prev) => [...prev, ...res.data]);
       } catch (error: any) {
@@ -105,7 +103,7 @@ export default function Users({ listUser, user }: UsersProps) {
     }
 
     fn();
-  }, [isBottom, offset]);
+  }, [isBottom]);
 
   return (
     <ProtectedRoute allowedRoles={["ADMIN"]}>
@@ -129,6 +127,7 @@ export default function Users({ listUser, user }: UsersProps) {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              placeholder="Enter Name"
               className="mt-1 block w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               required
             />
@@ -143,6 +142,7 @@ export default function Users({ listUser, user }: UsersProps) {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              placeholder="Enter Email"
               className="mt-1 block w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               required
             />
@@ -158,6 +158,7 @@ export default function Users({ listUser, user }: UsersProps) {
               minLength={8}
               value={formData.password}
               onChange={handleChange}
+              placeholder="Enter Password"
               className="mt-1 block w-full rounded-md border border-gray-300 p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               required
             />
@@ -220,6 +221,7 @@ export default function Users({ listUser, user }: UsersProps) {
               <th className="px-4 py-3 text-left">No</th>
               <th className="px-4 py-3 text-left">Name</th>
               <th className="px-4 py-3 text-left">Email</th>
+              <th className="px-4 py-3 text-left">Request this year</th>
               <th className="px-4 py-3 text-center">Actions</th>
             </tr>
           </thead>

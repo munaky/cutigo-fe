@@ -6,7 +6,7 @@ export const useScrollToBottom = (offset = 100) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - offset;
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
       setIsBottom(scrolledToBottom);
     };
@@ -21,7 +21,7 @@ export const useScrollToBottom = (offset = 100) => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [offset]);
+  }, []);
 
   return isBottom;
 };
