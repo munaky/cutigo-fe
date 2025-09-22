@@ -1,43 +1,47 @@
-# 🌟 CutiGo: Aplikasi Manajemen Pengajuan Cuti Karyawan (Next.js Frontend)
+# 🌟 CutiGo: Employee Leave Management Application (Next.js Frontend)
 
-**CutiGo** adalah aplikasi berbasis web yang membantu perusahaan dalam **mengelola pengajuan cuti karyawan** secara lebih cepat, praktis, dan transparan.  
-Dengan CutiGo, tidak ada lagi formulir manual atau repot-repot menghubungi HR secara langsung — semua bisa dilakukan **secara online**. 🚀
-
----
-
-## ✨ Fitur Utama
-- 📌 **Pengajuan Online** – Karyawan dapat mengajukan cuti kapan saja dan di mana saja.  
-- 📖 **Riwayat Cuti** – Lihat daftar pengajuan cuti sebelumnya dengan mudah.  
-- 🔔 **Notifikasi Status** – Pantau proses persetujuan cuti secara real-time.  
-- ⚡ **Manajemen Efisien** – HR dapat meninjau, menyetujui, atau menolak pengajuan hanya dalam beberapa klik.  
+**CutiGo** is a web-based application that helps companies **manage employee leave requests** faster, easier, and more transparently.
+With CutiGo, there’s no need for manual forms or direct HR contact — everything can be done **online**. 🚀
 
 ---
 
-## 👥 Peran dalam Aplikasi
+## ✨ Key Features
 
-### 👨‍💼 Karyawan
-- Mengajukan cuti secara online.  
-- Mengubah atau membatalkan pengajuan sebelum diproses.  
-- Melihat status pengajuan cuti.  
+* 📌 **Online Leave Requests** – Employees can apply for leave anytime, anywhere.
+* 📖 **Leave History** – Easily view past leave applications.
+* 🔔 **Real-Time Notifications** – Track the approval status instantly.
+* ⚡ **Efficient Management** – HR can review, approve, or reject requests in just a few clicks.
+
+---
+
+## 👥 User Roles
+
+### 👨‍💼 Employee
+
+* Submit leave requests online.
+* Edit or cancel requests before they are processed.
+* View the status of submitted leave requests.
 
 ### 🧑‍💻 Admin / HR
-- Meninjau semua pengajuan cuti yang masuk.  
-- Memberikan persetujuan atau penolakan.  
-- Memastikan jadwal cuti tetap selaras dengan operasional perusahaan.  
+
+* Review all incoming leave requests.
+* Approve or reject leave applications.
+* Ensure leave schedules align with company operations.
 
 ---
 
-## ⚙️ Instalasi & Menjalankan (Next.js)
+## ⚙️ Installation & Running (Next.js)
 
-Pastikan sudah terpasang **Node.js (>=18)** di komputer.
+Make sure **Node.js (>=18)** is installed on your machine.
 
 ```bash
-# 1. Clone repo
+# 1. Clone the repository
 git clone https://github.com/munaky/cutigo-fe.git
 cd cutigo-fe
 
 # 2. Install dependencies
 npm install 
 
-# 3. Jalankan server development
+# 3. Run the development server
 npm run dev
+```
