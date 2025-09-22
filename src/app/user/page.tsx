@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export default async function UserPage() {
   const res = await axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: process.env.INTERNAL_API_URL,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${(await cookies()).get('token')?.value}`,
